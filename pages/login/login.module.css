@@ -1,0 +1,106 @@
+.container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+  background: url('/lemans1.jpg') no-repeat center center/cover;
+  font-family: Arial, sans-serif;
+  padding: 20px; /* Added padding to ensure content isn't too close to the edges */
+}
+
+.card {
+  background-color: rgba(255, 255, 255, 0.2);
+  border-radius: 30px;
+  padding: 20px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  width: 100%;
+  max-width: 400px;
+  text-align: center;
+  transition: box-shadow 0.3s ease-in-out;
+}
+
+.card:hover {
+  box-shadow: 0 0 350px #6100b6;
+}
+
+h1 {
+  margin-bottom: 20px;
+  color: #000000;
+  font-family: 'Segoe UI';
+  font-size: 24px;
+}
+
+.inputGroup {
+  margin-bottom: 30px;
+  text-align: left;
+}
+
+label {
+  display: block;
+  margin-bottom: 5px;
+  color: #000000;
+  font-size: 14px;
+  font-family: 'Segoe UI';
+}
+
+input {
+  width: 100%;
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 30px;
+  font-size: 14px;
+  font-family: 'Segoe UI';
+}
+
+input:focus {
+  border-color: #007bff;
+  outline: none;
+}
+
+button {
+  width: 100%;
+  padding: 10px;
+  background-color: #058f00;
+  color: white;
+  border: none;
+  border-radius: 30px;
+  font-size: 16px;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+button:hover {
+  background-color: #0056b3;
+}
+
+.error {
+  color: red;
+  margin-bottom: 10px;
+  font-size: 14px;
+}
+
+@media (max-width: 600px) {
+  .card {
+    padding: 15px;
+    max-width: 90%;
+    border-radius: 20px;
+  }
+
+  h1 {
+    font-size: 20px;
+  }
+
+  .inputGroup {
+    margin-bottom: 20px;
+  }
+
+  input {
+    font-size: 16px;
+    padding: 12px;
+  }
+
+  button {
+    font-size: 18px;
+    padding: 12px;
+  }
+}
