@@ -1,10 +1,15 @@
+import Header from '../../components/header';
+import styles from './dashboard.module.css';
+import CarCard from '../../components/carCard';
+
 const Dashboard = () => {
   return (
-    <div>
-      <h1>Admin Dashboard</h1>
-      <p>Welcome to the admin dashboard!</p>
-      {/* Add more functionality here */}
-    </div>
+    <>
+      <Header />
+      <h1 className={styles.title}>Admin Dashboard</h1>
+
+      <CarCard />
+    </>
   );
 };
 

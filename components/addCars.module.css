@@ -1,0 +1,55 @@
+.addCarContainer {
+  max-width: 600px;
+  margin: 200px auto;
+  padding: 20px;
+  background-color: #00354d54;
+  border-radius: 30px;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 80%;
+}
+
+.addCarForm {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  max-width: 450px;
+}
+
+.addCarForm input {
+  margin-bottom: 10px;
+  padding: 8px;
+  font-size: 16px;
+  border: 1px solid #ccc;
+  border-radius: 10px;
+}
+
+.addCarForm button {
+  background-color: #007b2f;
+  color: white;
+  padding: 10px;
+  font-size: 16px;
+  border: none;
+  border-radius: 20px;
+  cursor: pointer;
+}
+
+.addCarForm button:hover {
+  background-color: #45a049;
+}
+
+.message {
+  margin-bottom: 15px;
+  color: #ffffff;
+}
+
+body {
+  margin: 0;
+  padding: 0;
+  font-family: Arial, sans-serif;
+  background: url('/mwheel.jpg') no-repeat center center fixed;
+  background-size: cover;
+  height: 100vh;
+}
