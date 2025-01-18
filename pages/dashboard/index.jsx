@@ -7,7 +7,6 @@ const Dashboard = () => {
     <>
       <Header />
       <h1 className={styles.title}>Admin Dashboard</h1>
-
       <CarCard />
     </>
   );

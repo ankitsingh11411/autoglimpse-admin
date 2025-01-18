@@ -12,14 +12,14 @@ const Login = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+
+    const apiUrl = process.env.REACT_APP_API_URL || 'http://localhost:3000'; // Use dynamic environment variable
+
     try {
-      const response = await axios.post(
-        'http://localhost:3000/api/auth/admin/login',
-        {
-          email,
-          password,
-        }
-      );
+      const response = await axios.post(`${apiUrl}/api/auth/admin/login`, {
+        email,
+        password,
+      });
 
       console.log('Login response:', response.data);
 
