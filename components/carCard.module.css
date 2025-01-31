@@ -1,29 +1,63 @@
-.car_cards {
+.card {
   display: flex;
-  flex-wrap: wrap;
-  gap: 20px;
+  flex-direction: column;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  overflow: hidden;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  transition: transform 0.3s, box-shadow 0.3s;
+  background-color: #fff;
+}
+
+.card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2);
+}
+
+.imageWrapper {
+  width: 100%;
+  height: 200px;
+  overflow: hidden;
+  background: #f4f4f4;
+  display: flex;
+  align-items: center;
   justify-content: center;
 }
 
-.car_card {
-  border: 1px solid #ddd;
-  border-radius: 8px;
-  background-color: rgba(38, 0, 143, 0.39);
-  width: 300px;
-  padding: 16px;
-  text-align: center;
-  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-  transition: transform 0.2s;
-  color: rgb(255, 255, 255);
-}
-
-.car_card:hover {
-  transform: scale(1.05);
-}
-
-.car_image {
+.image {
   width: 100%;
-  height: 200px;
+  height: auto;
   object-fit: cover;
-  border-radius: 8px;
+}
+
+.placeholder {
+  color: #aaa;
+  font-size: 14px;
+  font-style: italic;
+}
+
+.details {
+  padding: 16px;
+}
+
+.title {
+  margin: 0 0 8px;
+  font-size: 20px;
+  font-weight: bold;
+  color: #333;
+}
+
+.description {
+  font-size: 14px;
+  color: #666;
+  margin: 0 0 16px;
+}
+
+.specs {
+  font-size: 14px;
+  color: #444;
+}
+
+.specs p {
+  margin: 4px 0;
 }

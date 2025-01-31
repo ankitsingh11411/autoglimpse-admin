@@ -5,14 +5,16 @@ import styles from './addCars.module.css';
 const AddCars = () => {
   const [carData, setCarData] = useState({
     brand: '',
-    model: '',
-    productionYear: '',
-    endYear: '',
-    topSpeed: '',
-    horsepower: '',
+    name: '',
+    power: '',
     torque: '',
+    description: '',
+    productionYear: '',
+    topSpeedValue: '',
+    topSpeedUnit: 'kmh',
   });
-  const [image, setImage] = useState(null);
+  const [images, setImages] = useState([]);
+  const [sounds, setSounds] = useState({});
   const [message, setMessage] = useState('');
 
   const handleInputChange = (e) => {
@@ -20,8 +22,12 @@ const AddCars = () => {
     setCarData({ ...carData, [name]: value });
   };
 
-  const handleImageChange = (e) => {
-    setImage(e.target.files[0]);
+  const handleFileChange = (e) => {
+    if (e.target.name === 'images') {
+      setImages([...e.target.files]);
+    } else {
+      setSounds({ ...sounds, [e.target.name]: e.target.files[0] });
+    }
   };
 
   const handleSubmit = async (e) => {
@@ -31,14 +37,18 @@ const AddCars = () => {
     Object.keys(carData).forEach((key) => {
       formData.append(key, carData[key]);
     });
-    if (image) {
-      formData.append('image', image);
-    }
+    images.forEach((image) => formData.append('images', image));
+    Object.keys(sounds).forEach((key) => formData.append(key, sounds[key]));
 
     try {
       const token = localStorage.getItem('token');
+      if (!token) {
+        setMessage('Authentication token is missing. Please log in again.');
+        return;
+      }
+
       const response = await axios.post(
-        'http://localhost:3000/api/cars/add',
+        'http://localhost:5001/api/cars',
         formData,
         {
           headers: {
@@ -47,10 +57,11 @@ const AddCars = () => {
           },
         }
       );
-      setMessage(`Car added successfully: ${response.data.model}`);
+
+      setMessage(`Car added successfully: ${response.data.name}`);
     } catch (error) {
       setMessage(
-        `Failed to add car: ${error.response?.data?.error || error.message}`
+        `Failed to add car: ${error.response?.data?.message || error.message}`
       );
     }
   };
@@ -68,8 +79,28 @@ const AddCars = () => {
         />
         <input
           type="text"
-          name="model"
-          placeholder="Model"
+          name="name"
+          placeholder="Name"
+          onChange={handleInputChange}
+          required
+        />
+        <input
+          type="number"
+          name="power"
+          placeholder="Power (BHP)"
+          onChange={handleInputChange}
+          required
+        />
+        <input
+          type="number"
+          name="torque"
+          placeholder="Torque (Nm)"
+          onChange={handleInputChange}
+          required
+        />
+        <textarea
+          name="description"
+          placeholder="Description"
           onChange={handleInputChange}
           required
         />
@@ -82,29 +113,44 @@ const AddCars = () => {
         />
         <input
           type="number"
-          name="endYear"
-          placeholder="End Year"
+          name="topSpeedValue"
+          placeholder="Top Speed"
           onChange={handleInputChange}
+          required
+        />
+        <select
+          name="topSpeedUnit"
+          onChange={handleInputChange}
+          defaultValue="kmh"
+        >
+          <option value="kmh">KMH</option>
+          <option value="mph">MPH</option>
+        </select>
+        <input
+          type="file"
+          name="images"
+          accept="image/*"
+          multiple
+          onChange={handleFileChange}
         />
         <input
-          type="number"
-          name="topSpeed"
-          placeholder="Top Speed (km/h)"
-          onChange={handleInputChange}
+          type="file"
+          name="rev"
+          accept="audio/*"
+          onChange={handleFileChange}
         />
         <input
-          type="number"
-          name="horsepower"
-          placeholder="Horsepower"
-          onChange={handleInputChange}
+          type="file"
+          name="flyby"
+          accept="audio/*"
+          onChange={handleFileChange}
         />
         <input
-          type="number"
-          name="torque"
-          placeholder="Torque (Nm)"
-          onChange={handleInputChange}
+          type="file"
+          name="launchControl"
+          accept="audio/*"
+          onChange={handleFileChange}
         />
-        <input type="file" accept="image/*" onChange={handleImageChange} />
         <button type="submit">Add Car</button>
       </form>
     </div>

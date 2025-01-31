@@ -4,7 +4,7 @@ import axios from 'axios';
 import styles from './login.module.css';
 
 const Login = () => {
-  const [email, setEmail] = useState('');
+  const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
   const [error, setError] = useState('');
 
@@ -13,22 +13,26 @@ const Login = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-    const apiUrl = process.env.REACT_APP_API_URL || 'http://localhost:3000'; // Use dynamic environment variable
-
     try {
-      const response = await axios.post(`${apiUrl}/api/auth/admin/login`, {
-        email,
-        password,
-      });
+      const response = await axios.post(
+        `http://localhost:5001/api/admin/login`,
+        {
+          username,
+          password,
+        }
+      );
 
-      console.log('Login response:', response.data);
+      if (!response.data.token) {
+        setError('Invalid username or password');
+        return;
+      }
 
       localStorage.setItem('token', response.data.token);
       alert('Login successful');
       navigate('/dashboard');
     } catch (err) {
       console.error('Login error:', err.response?.data);
-      setError(err.response?.data?.error || 'Login failed');
+      setError(err.response?.data?.message || 'Login failed');
     }
   };
 
@@ -38,11 +42,11 @@ const Login = () => {
         <h1>Admin Login</h1>
         <form onSubmit={handleSubmit}>
           <div className={styles.inputGroup}>
-            <label>Email:</label>
+            <label>Username:</label>
             <input
-              type="email"
-              value={email}
-              onChange={(e) => setEmail(e.target.value)}
+              type="text"
+              value={username}
+              onChange={(e) => setUsername(e.target.value)}
               required
             />
           </div>

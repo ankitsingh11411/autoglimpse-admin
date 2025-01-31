@@ -1,46 +1,40 @@
-import React, { useEffect, useState } from 'react';
-import axios from 'axios';
+import React from 'react';
 import styles from './carCard.module.css';
 
-const CarCard = () => {
-  const [cars, setCars] = useState([]);
-
-  useEffect(() => {
-    axios
-      .get('http://localhost:3000/api/cars')
-      .then((response) => {
-        setCars(response.data);
-      })
-      .catch((error) => {
-        console.error('Error fetching car data:', error);
-      });
-  }, []);
-
+const CarCard = ({ car }) => {
   return (
-    <div className={styles.car_cards}>
-      {cars.map((car) => (
-        <div key={car._id} className={styles.car_card}>
+    <div className={styles.card}>
+      <div className={styles.imageWrapper}>
+        {car.images && car.images.length > 0 ? (
           <img
-            src={
-              car.image
-                ? `http://localhost:3000/uploads/${car.image}`
-                : '/mwheel.jpg'
-            }
-            alt={`${car.brand} ${car.model}`}
-            className={styles.car_image}
+            src={car.images[0]}
+            alt={`${car.brand} ${car.name}`}
+            className={styles.image}
           />
-
-          <h2>
-            {car.brand} {car.model}
-          </h2>
+        ) : (
+          <div className={styles.placeholder}>Image not available</div>
+        )}
+      </div>
+      <div className={styles.details}>
+        <h2 className={styles.title}>
+          {car.brand} {car.name}
+        </h2>
+        <p className={styles.description}>{car.description}</p>
+        <div className={styles.specs}>
           <p>
-            Production: {car.productionYear} - {car.endYear || 'Present'}
+            <strong>Power:</strong> {car.power} BHP
           </p>
-          <p>Top Speed: {car.topSpeed} km/h</p>
-          <p>Horsepower: {car.horsepower} HP</p>
-          <p>Torque: {car.torque} Nm</p>
+          <p>
+            <strong>Torque:</strong> {car.torque} Nm
+          </p>
+          <p>
+            <strong>Top Speed:</strong> {car.topSpeed.value} {car.topSpeed.unit}
+          </p>
+          <p>
+            <strong>Production Year:</strong> {car.productionYear}
+          </p>
         </div>
-      ))}
+      </div>
     </div>
   );
 };
